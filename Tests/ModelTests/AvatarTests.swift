@@ -27,10 +27,43 @@ import XCTest
 
 class AvatarTests: XCTestCase {
 
-    func testDefaultInit() {
-        let avatar = Avatar()
-        XCTAssertNil(avatar.image)
-        XCTAssertEqual(avatar.initals, "?")
+    private struct Constants {
+        static let defaultInitials = "?"
+    }
+
+    func testInitWithoutParams_shouldSetDefaultValuesForImageAndInitials() {
+        let sut = Avatar()
+
+        XCTAssertEqual(sut.initals, Constants.defaultInitials)
+        XCTAssertNil(sut.image)
+    }
+
+    func testInitWithImage_shouldSetImageAndDefaultInitials() {
+        let image = UIImage()
+
+        let sut = Avatar(image: image)
+
+        XCTAssertEqual(sut.initals, Constants.defaultInitials)
+        XCTAssertEqual(image, sut.image)
+    }
+
+    func testInitWithInitials_shouldSetInitialsAndImageNil() {
+        let initials = "TI"
+
+        let sut = Avatar(initals: initials)
+
+        XCTAssertEqual( sut.initals, initials)
+        XCTAssertNil(sut.image)
+    }
+
+    func testInitWithParams_shouldSetImageAndInitials() {
+        let initials = "TI"
+        let image = UIImage()
+
+        let sut = Avatar(image: image, initals: initials)
+
+        XCTAssertEqual( sut.initals, initials)
+        XCTAssertEqual(sut.image, image)
     }
 
 }
